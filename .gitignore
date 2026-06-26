@@ -1,0 +1,19 @@
+# Java
+target/         → compiled Java output folder, auto-generated, no need to push
+*.class         → compiled Java class files
+*.jar           → packaged Java files
+.mvn/           → Maven wrapper files, not needed in repo
+# React
+node_modules/   → thousands of dependency files, never push these
+                  anyone cloning your repo runs npm install to get them
+build/          → production build output, auto-generated
+dist/           → same, another common build output folder
+# Environment
+.env                        → contains secret keys like Claude API key
+                              NEVER push this to GitHub
+application-local.properties → local database passwords, keep private
+# IDE
+.idea/    → IntelliJ settings, personal to your machine
+.vscode/  → VS Code settings, personal to your machine
+*.iml     → IntelliJ module files
+.DS_Store → Mac system file, irrelevant to the project
