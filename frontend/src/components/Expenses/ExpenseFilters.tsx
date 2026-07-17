@@ -10,10 +10,14 @@
 import React, { useState } from 'react';
 import { Filter, X, PlusCircle} from 'lucide-react';
 import {Category, FilterState} from '../../types/expense';
+import { Download } from 'lucide-react';
+import { exportToCSV } from '../../utils/exportUtils';
+import { Expense } from '../../types/expense';
 
 interface ExpenseFiltersProps {
     onFilter: (filters: Partial<FilterState>) => void;
     onAddClick: () => void;
+    expenses: Expense[];
 }
 
 //onFilter->function called when filters change and tells App.tsx to reaload expenses with new filters from backend
@@ -25,7 +29,8 @@ const CATEGORIES: Category[] = [
 
 const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
     onFilter,
-    onAddClick
+    onAddClick,
+    expenses
 }) => {
     const [filters, setFilters] = useState<FilterState>({
         category: '',
@@ -125,6 +130,7 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                                 : 'border-gray-200 text-gray-600 hover:bg-gray-50'
                                }`}
                 >
+                
                     <Filter className="h-4 w-4"/>
                      Filters
                      {hasActiveFilters && (
@@ -135,6 +141,16 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                                .filter(Boolean).length}
                         </span>
                      )}
+                </button>
+                <button
+                   onClick={() => exportToCSV(expenses)}
+                   className="flex items-center gap-2 px-4 py-2.5
+                              bg-emerald-600 text-white text-sm font-medium
+                              rounded-lg hover:bg-emerald-700
+                              transition-colors duration-200"
+                >
+                    <Download className="h-4 w-4" />
+                    Export CSV
                 </button>
 
                 {/* Clear Filters */}

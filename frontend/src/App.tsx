@@ -94,6 +94,7 @@ const App: React.FC = () => {
         <ExpenseFilters
            onFilter={handleFilter}
            onAddClick={handleAddClick}
+           expenses = {expenses}
         />
 
         <ExpenseList 
