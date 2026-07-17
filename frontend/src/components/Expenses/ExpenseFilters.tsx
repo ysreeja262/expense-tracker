@@ -1,3 +1,12 @@
+//useState -> tracks filter values and whether panel is expanded
+
+//Filter -> funnel icon on filter button
+//X -> close icon on clear button
+//PlusCircle -> + icon on add expense button
+
+//Category -> the 7 category types
+//FilterState -> {category, from, to}
+
 import React, { useState } from 'react';
 import { Filter, X, PlusCircle} from 'lucide-react';
 import {Category, FilterState} from '../../types/expense';
@@ -6,6 +15,9 @@ interface ExpenseFiltersProps {
     onFilter: (filters: Partial<FilterState>) => void;
     onAddClick: () => void;
 }
+
+//onFilter->function called when filters change and tells App.tsx to reaload expenses with new filters from backend
+//onAddClick->function called when Add Expense clicked - opens form modal in App.tsx
 
 const CATEGORIES: Category[] = [
     'FOOD', 'TRANSPORTATION', 'ENTERTAINMENT', 'SHOPPING', 'BILLS', 'RENT', 'OTHER'
@@ -23,6 +35,9 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
 
     const [isExpanded, setIsExpanded] = useState(false);
 
+    //filters -> tracks current filter values. empty string = no filter applied
+    //isExpanded -> false = filter panel hidden hidden, true = filter panel visible
+
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
@@ -32,6 +47,13 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
         applyFilters(updated);
     };
 
+    //e.target.name -> which field changed "category" or "from" or "to"
+    //e.target.value -> what the new value is "FOOD" or "2026-06-01T00:00"
+    //{ ...filters, [name]: value } -> spread existing filters. update only the changed field.
+                                       //Example: {category: 'FOOD', <- updated, from: '', <- unchanged, to: '', <- unchanged}
+    //setFilters(updated) -> update local state. re-renders the component.
+    //applyFilters(updated) -> immediately sends the applied filters to backend.
+
     const applyFilters = (current: FilterState) => {
         const active: Partial<FilterState> = {};
         if (current.category) active.category = current.category as Category;
@@ -40,11 +62,33 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
         onFilter(active);
     };
 
+    /* Example: User selected FOOD, no dates:
+    current = {category: 'FOOD', from: '', to:''}
+                ↓
+    active = {category: 'FOOD'}. user didn't give from and to - empty strings
+                ↓
+    onFilter({category: 'FOOD'}). user applied filter and selected category: food
+                ↓
+    App.tsx -> loadExpenses({category: 'FOOD'})
+                ↓
+    GET /api/expenses?category=FOOD
+                ↓
+    Spring Boot filters by FOOD
+                ↓
+    Only FOOD expenses show in list
+                ↓
+    If user does not select any filters = active{} -> onFilter({}) -> GET /api/expenses (no params) -> All expenses return
+     */
+
     const clearFilters = () => {
         const empty: FilterState = {category: '', from: '', to: ''};
         setFilters(empty);
         onFilter({});
     };
+
+    /* Reset local state -> all fields empty (when user clicks clear filter)
+       onFilter({}) -> reload all expenses. no filters applied
+       UI updates -> shows all expenses. clear button disappears */
 
     const hasActiveFilters = 
        filters.category !== '' || 
@@ -64,11 +108,11 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                   className ="flex items-center gap-2 px-4 py-2.5
                                bg-indigo-600 text-white text-sm font-medium
                                rounded-lg hover:bg-indigo-700
-                               transistion-colors duration-200"
+                               transition-colors duration-200"
                 >
                     <PlusCircle className="h-4 w-4" />
                     Add Expense
-                </button>
+                </button> 
 
                 {/* Filter Toggle */}
                 <button
@@ -100,7 +144,7 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                       className="flex items-center gap-1.5 px-3 py-2.5
                                  text-sm font-medium text-red-500
                                  hover:bg-red-50 rounded-lg
-                                 transistion-colors duration-200"
+                                 transition-colors duration-200"
                     >
                         <X className="h-4 w-4" />
                         Clear
@@ -114,7 +158,7 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                                 grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {/* Category Filter */}
                     <div>
-                        <label className="block text-xs font-meduim
+                        <label className="block text-xs font-medium
                                           text-gray-500 mb-1">
                             Category
                         </label>
@@ -176,3 +220,65 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
 };
 
 export default ExpenseFilters;
+
+/* What this component does
+
+Add Expense button -> opens the form modal
+Filters button -> shows/hides filter pane
+Clear button -> resets all filters
+Category dropdown -> filter by category
+From/To dates -> filter by date range */
+
+/*App Loads
+    ↓
+filters = {category: '', from: '',  to:''}
+isExpanded = false
+    ↓
+Shows: [Add Expense] [filters]
+    ↓
+USER CLICKS FILTERS BUTTON
+    ↓
+setIsExpanded(true)
+    ↓
+Filter panel slides open
+Shows: Category | From Date | to Date
+User will select the food category
+    ↓
+handle Change fires
+    ↓
+user selects the values updated = {Category: 'FOOD', from: '', to: ''}
+setFilters(updated)
+    ↓
+applyFilters(updated)
+    ↓
+active = {category: 'FOOD'}
+onFilter({category: 'FOOD'})
+    ↓
+App.tsx -> loadExpenses({category:'FOOD'}) -> it asks backend for the list of expenses filtered by food
+    ↓
+GET /api/expenses?category=FOOD
+    ↓
+Spring Boot -> MySQL -> returns FOOD only
+    ↓
+Expense list updates instantly. Filter button appears in center and turns purple. and count badge shows 1
+    ↓
+USER clicks Clear
+    ↓
+clearFilters will be called
+   ↓
+setFilters({category: '', from: '', to: ''})
+onFilter({})
+    ↓
+GET /api/expenses (no filters)
+    ↓
+All expenses will be returned
+Filter button goes gray and appear at the right of the screen
+clear button disappears
+    ↓
+USER clicks add expense
+    ↓
+onAddClick()
+    ↓
+App.tsx -> setShowForm(true)
+    ↓
+Expense Form modal opens */

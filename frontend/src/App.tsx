@@ -8,6 +8,8 @@ import ExpenseFilters from './components/Expenses/ExpenseFilters';
 import ExpenseList from './components/Expenses/ExpenseList';
 import ExpenseForm from './components/Expenses/ExpenseForm';
 import SpendingChart from './components/Dashboard/SpendingChart';
+import MonthlySummary from './components/Dashboard/MonthlySummary';
+import BudgetTracker from './components/Dashboard/BudgetTracker';
 
 const App: React.FC = () => {
   const {
@@ -77,6 +79,16 @@ const App: React.FC = () => {
         <SpendingChart
            expenses={expenses}
            currency={currency}
+        />
+
+        <MonthlySummary
+          expenses = {expenses}
+          currency = {currency}
+        />
+
+        <BudgetTracker
+          expenses={expenses}
+          currency = {currency}
         />
 
         <ExpenseFilters
