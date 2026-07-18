@@ -43,6 +43,12 @@ public class Expense {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(length = 500)
+    private String notes;
+
+    @Column(name= "tags")
+    private String tags;
+
     public enum Category {
         FOOD, TRANSPORTATION, ENTERTAINMENT,
         SHOPPING, BILLS, RENT, OTHER
@@ -54,11 +60,35 @@ public class Expense {
     public Category getCategory() { return category; }
     public String getDescription() { return description; }
     public LocalDateTime getCreatedAt() { return createdAt; }
+    public String getNotes() {
+        return notes;
+    }
+    public String getTags() {
+        return tags;
+    }
 
-    public void setId(Long id) { this.id = id; }
-    public void setDate(LocalDateTime date) { this.date = date; }
-    public void setAmount(BigDecimal amount) { this.amount = amount; }
-    public void setCategory(Category category) { this.category = category; }
-    public void setDescription(String description) { this.description = description; }
-    public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
+    public void setId(Long id) { 
+        this.id = id; 
+    }
+    public void setDate(LocalDateTime date) {
+        this.date = date; 
+    }
+    public void setAmount(BigDecimal amount) { 
+        this.amount = amount; 
+    }
+    public void setCategory(Category category) { 
+        this.category = category; 
+    }
+    public void setDescription(String description) { 
+        this.description = description; 
+    }
+    public void setCreatedAt(LocalDateTime createdAt) { 
+        this.createdAt = createdAt; 
+    }
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
 }

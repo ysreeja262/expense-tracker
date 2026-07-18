@@ -48,6 +48,8 @@ public class ExpenseService {
         expense.setAmount(updatedExpense.getAmount());
         expense.setCategory(updatedExpense.getCategory());
         expense.setDescription(updatedExpense.getDescription());
+        expense.setNotes(updatedExpense.getNotes());
+        expense.setTags(updatedExpense.getTags());
         return expenseRepository.save(expense);
     }
 

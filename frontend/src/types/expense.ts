@@ -13,6 +13,8 @@ export interface Expense {
     amount: number;
     category: Category;
     description: string;
+    notes?: string;
+    tags?: string;
     createdAt: string;
 }
 
@@ -21,6 +23,8 @@ export interface ExpenseRequest {
     amount: number;
     category: Category;
     description: string;
+    notes?: string;
+    tags?: string;
 }
 
 export interface FilterState {

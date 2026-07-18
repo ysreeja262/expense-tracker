@@ -13,6 +13,8 @@ export const exportToCSV = (expenses: Expense[], filename = 'expense.csv') => {
         'Description',
         'Category',
         'Amount',
+        'Notes',
+        'Tags',
         'Created At'
     ];
 
@@ -23,6 +25,8 @@ export const exportToCSV = (expenses: Expense[], filename = 'expense.csv') => {
         `"${e.description.replace(/"/g, '""')}"`,
         e.category,
         e.amount.toFixed(2),
+        `"${(e.notes || '').replace(/"/g, '""')}"`,
+        `"${(e.tags || '').replace(/"/g, '""')}"`,
         new Date(e.createdAt).toLocaleString()
     ]);
 

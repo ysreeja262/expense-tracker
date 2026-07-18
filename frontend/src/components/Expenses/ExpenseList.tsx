@@ -126,7 +126,29 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
                                         {formatDate(expense.date)}
                                     </td>
                                     <td className="px-5 py-4 text-sm text-gray-800 font-medium">
-                                        {expense.description}
+                                       <div>{expense.description}</div> 
+                                       {expense.notes && (
+                                        <div className="text-xs text-gray-400 mt-0.5">
+                                            {expense.notes}
+                                        </div>
+                                       )}
+                                       {expense.tags && (
+                                        <div className="flex flex-wrap gap-1 mt-1">
+                                            {expense.tags.split(',')
+                                               .map(t => t.trim())
+                                               .filter(Boolean)
+                                               .map((tag, i) => (
+                                                <span
+                                                  key={i}
+                                                  className="px-1.5 py-0.5 bg-indigo-50
+                                                             text-indigo-500 text-xs
+                                                             rounded-full"
+                                                >
+                                                    #{tag}
+                                                </span>
+                                               ))}
+                                        </div>
+                                       )}
                                     </td>
                                     <td className="px-5 py-4">
                                         <span className={`px-2.5 py-1 rounded-full text-xs

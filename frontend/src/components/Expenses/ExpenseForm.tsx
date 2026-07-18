@@ -29,7 +29,9 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
         date: '',
         amount: 0,
         category: 'FOOD',
-        description: ''
+        description: '',
+        notes: '',
+        tags: ''
     });
 
     const [errors, setErrors] = useState<FormErrors>({});
@@ -42,14 +44,18 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                 date: formatDateForInput(editingExpense.date),
                 amount: editingExpense.amount,
                 category: editingExpense.category,
-                description: editingExpense.description
+                description: editingExpense.description,
+                notes: editingExpense.notes || '',
+                tags: editingExpense.tags || ''
             });
         } else {
             setForm({
                 date: '',
                 amount: 0,
                 category: 'FOOD',
-                description: ''
+                description: '',
+                notes: '',
+                tags: ''
             });
         }
     }, [editingExpense]);
@@ -222,6 +228,63 @@ const ExpenseForm: React.FC<ExpenseFormProps> = ({
                         <p className="text-red-500 text-xs mt-1">
                             {errors.description}
                         </p>
+                    )}
+                </div>
+
+                {/*Notes*/}
+                <div>
+                    <label className="block text-sm font-meduim text-gray-700 mb-1">
+                        Notes
+                        <span className="text-gray-400 font-normal ml-1">
+                            (optional)
+                        </span>
+                    </label>
+                    <textarea
+                       name="notes"
+                       value={form.notes || ''}
+                       onChange={handleChange}
+                       placeholder="Any additional notes..."
+                       rows={2}
+                       className="w-full px-3 py-2 border border-gray-200
+                                  rounded-lg text-sm focus:outline-none
+                                  focus:ring-2 focus:ring-indigo-300 resize-none"
+                    />
+                </div>
+
+                {/*Tags*/}
+                <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Tags
+                        <span className="text-gray-400 font-normal ml-1">
+                            (optional, comma separated)
+                        </span>
+                    </label>
+                    <input
+                      type="text"
+                      name="tags"
+                      value={form.tags || ''}
+                      onChange={handleChange}
+                      placeholder="e.g. weekly, essential, work"
+                      className="w-full px-3 py-2 border border-grauy-200
+                                 rounded-lg text-sm focus:outline-none
+                                 focus:ring-2 focus:ring-indigo-300"
+                    />
+                    {form.tags && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                            {form.tags.split(',')
+                               .map(t => t.trim())
+                               .filter(Boolean)
+                               .map((tag, i) => (
+                                 <span
+                                  key={i}
+                                  className="px-2 py-0.5 bg-indigo-100
+                                             text-indigo-600 text-xs
+                                             rounded-full font-medium"
+                                  >
+                                    #{tag}
+                                  </span>
+                            ))}
+                        </div>
                     )}
                 </div>
               </div>
