@@ -96,13 +96,14 @@ const BudgetTracker: React.FC<BudgetTrackerProps> = ({
     };
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border
-                        border-gray-100 p-6 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl 
+                        shadow-sm border border-gray-100 dark:border-gray-700 
+                        p-6 mb-6">
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                     <Target className="h-5 w-5 text-indigo-600" />
-                    <h2 className="text-lg font-bold text-gray-800">
+                    <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                         Budget Limits
                     </h2>
                 </div>
@@ -232,7 +233,7 @@ const BudgetTracker: React.FC<BudgetTrackerProps> = ({
                                 {isWarning && (
                                     <AlertTriangle className="h-4 w-4 text-amber-500" />
                                 )}
-                                <span className="text-sm font-semibold text-gray-800">
+                                <span className="text-sm font-semibold text-gray-800 dark:text-white">
                                     {budget.category}
                                 </span>
                                 {isOver && (
@@ -272,10 +273,10 @@ const BudgetTracker: React.FC<BudgetTrackerProps> = ({
 
                         {/* Amount Info */}
                         <div className = "flex items-center justify-between">
-                            <span className="text-xs text-gray-500">
+                            <span className="text-xs text-gray-500 dark:text-gray-400">
                                 {formatCurrency(spent, currency)} spent
                             </span>
-                            <span className="text-xs font-medium text-gray-600">
+                            <span className="text-xs font-medium text-gray-600 dark:text-gray-300">
                                 {percent}% of{' '}
                                 {formatCurrency(budget.monthlyLimit, currency)}
                             </span>

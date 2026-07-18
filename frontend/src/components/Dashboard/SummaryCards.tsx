@@ -78,18 +78,17 @@ const SummaryCards: React.FC<SummaryCardsProps> = ({ expenses, currency }) => {
       {cards.map((card) => (
         <div
           key={card.title}
-          className="bg-white rounded-xl shadow-sm border border-gray-100
-                     p-5 flex items-center gap-4 hover:shadow-md
-                     transition-shadow duration-200"
+          className="bg-white dark:bg-gray-800 rounded-xl shadow-sm
+                     border border-gray-100 dark:border-gray-700"
         >
           <div className={`${card.bg} text-white p-3 rounded-lg shrink-0`}>
             {card.icon}
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">
+            <p className="text-sm text-gray-500 dark: text-gray-400 font-medium">
               {card.title}
             </p>
-            <p className="text-xl font-bold text-gray-800 mt-0.5">
+            <p className="text-xl font-bold text-gray-800 dark: text-white mt-0.5">
               {card.value}
             </p>
             <p className="text-xs text-gray-400 mt-0.5">

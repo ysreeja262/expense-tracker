@@ -105,14 +105,15 @@ const MonthlySummary: React.FC<MonthlySummaryProps> = ({
   }
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border
-                    border-gray-100 p-6 mb-6">
+    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm 
+                    border border-gray-100 dark:border-gray-700
+                    p-6 mb-6">
 
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <Calendar className="h-5 w-5 text-indigo-600" />
-          <h2 className="text-lg font-bold text-gray-800">
+          <h2 className="text-lg font-bold text-gray-800 dark:text-white">
             Spending Summary
           </h2>
         </div>
@@ -149,7 +150,7 @@ const MonthlySummary: React.FC<MonthlySummaryProps> = ({
         <div>
           {/* Table Header */}
           <div className="grid grid-cols-4 gap-4 px-4 py-2
-                          bg-gray-50 rounded-lg mb-2">
+                          bg-gray-50 dark:bg-gray-700 rounded-lg mb-2">
             <span className="text-xs font-semibold text-gray-500
                              uppercase tracking-wider">
               Month
@@ -177,6 +178,7 @@ const MonthlySummary: React.FC<MonthlySummaryProps> = ({
                 <div
                   className="grid grid-cols-4 gap-4 px-4 py-3
                              rounded-lg hover:bg-gray-50
+                             dark:hover:bg-gray-700
                              cursor-pointer transition-colors"
                   onClick={() => setExpandedMonth(
                     expandedMonth === stat.monthYear
@@ -185,7 +187,7 @@ const MonthlySummary: React.FC<MonthlySummaryProps> = ({
                   )}
                 >
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium text-gray-800">
+                    <span className="text-sm font-medium text-gray-800 dark:text-white">
                       {stat.month} {stat.year}
                     </span>
                     {expandedMonth === stat.monthYear
@@ -193,14 +195,14 @@ const MonthlySummary: React.FC<MonthlySummaryProps> = ({
                       : <ChevronDown className="h-3 w-3 text-gray-400" />
                     }
                   </div>
-                  <span className="text-sm text-gray-600 text-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-300 text-center">
                     {stat.count}
                   </span>
-                  <span className="text-sm text-gray-600 text-center">
+                  <span className="text-sm text-gray-600 dark:text-gray-300 text-center">
                     {formatCurrency(stat.total / stat.count, currency)}
                   </span>
                   <span className="text-sm font-bold text-gray-800
-                                   text-right">
+                                   dark:text-white text-right">
                     {formatCurrency(stat.total, currency)}
                   </span>
                 </div>

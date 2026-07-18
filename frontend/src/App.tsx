@@ -12,6 +12,7 @@ import MonthlySummary from './components/Dashboard/MonthlySummary';
 import BudgetTracker from './components/Dashboard/BudgetTracker';
 import RecurringExpenses from './components/Expenses/RecurringExpenses';
 import TopExpenses from './components/Dashboard/TopExpenses';
+import { useDarkMode } from './hooks/useDarkMode';
 
 const App: React.FC = () => {
   const {
@@ -24,9 +25,13 @@ const App: React.FC = () => {
     loadExpenses
   } = useExpenses();
 
+  const { isDark, toggleDark } = useDarkMode();
+
   const [currency, setCurrency] = useState(getUserCurrency());
   const [showForm, setShowForm] = useState(false);
   const [editingExpense, setEditingExpense] = useState<Expense | null>(null);
+  
+  
 
   const handleAddClick = () => {
     setEditingExpense(null);
@@ -56,11 +61,13 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-950">
 
       <Navbar
          selectedCurrency = {currency}
          onCurrencyChange = {setCurrency}
+         isDark = {isDark}
+         onToggleDark={toggleDark}
       />
 
       <main className="max-w-7x1 mx-auto px-4 sm:px-6 lg:px-8 py-8">

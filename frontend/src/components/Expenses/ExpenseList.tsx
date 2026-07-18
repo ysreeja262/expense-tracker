@@ -52,7 +52,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
     //Loading state
     if(loading) {
         return (
-            <div className = "bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center">
+            <div className = "bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-8 text-center">
                 <div className="animate-spin rounded-full h-10 w-10
                                 border-b-2 border-indigo-600 mx-auto" />
                 <p className = "text-gray-400 mt-3">Loading expenses...</p>
@@ -61,12 +61,12 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700">
 
             {/* Header + Search */}
-            <div className="p-5 border-b border-gray-100 flex flex-col
+            <div className="p-5 border-b border-gray-100 dark:border-gray-700 flex flex-col
                             sm:flex-row sm:items-center justify-between gap-3">
-                <h2 className="text-lg font-bold text-gray-800">
+                <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                     Expenses
                     <span className="ml-2 text-sm font-normal text-gray-400">
                         ({filtered.length} records)
@@ -81,8 +81,9 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
                       className="p1-9 pr-4 py-2 text-sm border border-gray-200
-                                 rounded-lg focus:outline-non focus:ring-2
-                                 focus: ring-indigo-300 w-full sm:w-64"
+                                 dark:border-gray-600 rounded-lg focus:outline-none
+                                 focus:ring-2 focus:ring-indigo-300 w-full sm:w-64
+                                 bg-white dark:bg-gray-700 dark:text-white"
                       />
                 </div>
             </div>
@@ -102,30 +103,30 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
                   {/* Desktop Table */}
                   <div className="hidden md:block overflow-x-auto">
                     <table className="w-full">
-                        <thead className="bg-gray-50 border-b border-gray-100">
+                        <thead className="bg-gray-50 dark:bg-gray-700 border-b border-gray-100 dark:border-gray-600">
                             <tr>
                                 {['Date', 'Description', 'Category', 'Amount', 'Actions']
                                   .map(h => (
                                     <th
                                       key={h}
                                       className="px-5 py-3 text-left text-xs font-semibold
-                                                 text-gray-500 uppercase tracking-wider"
+                                                 text-gray-500 dark:text-gray-400 uppercase tracking-wider"
                                     >
                                         {h}
                                     </th>
                                   ))}
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-gray-50">
+                        <tbody className="divide-y divide-gray-50 dark:divide-gray-700">
                             {filtered.map(expense => (
                                 <tr
                                  key={expense.id}
-                                 className="hover:bg-gray-50 transistion-colors duration-150"
+                                 className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-150"
                                  >
-                                    <td className="px-5 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                    <td className="px-5 py-4 text-sm text-gray-500 dark:text-gray-400 whitespace-nowrap">
                                         {formatDate(expense.date)}
                                     </td>
-                                    <td className="px-5 py-4 text-sm text-gray-800 font-medium">
+                                    <td className="px-5 py-4 text-sm text-gray-800 dark:text-gray-100 font-medium">
                                        <div>{expense.description}</div> 
                                        {expense.notes && (
                                         <div className="text-xs text-gray-400 mt-0.5">
@@ -156,7 +157,7 @@ const ExpenseList: React.FC<ExpenseListProps> = ({
                                             {expense.category}
                                         </span>
                                     </td>
-                                    <td className="px-5 py-4 text-sm font-bold text-gray-800 whitespace-nowrap">
+                                    <td className="px-5 py-4 text-sm font-bold text-gray-800 dark:text-white whitespace-nowrap">
                                         {formatCurrency(expense.amount, currency)}
                                     </td>
                                     <td className="px-5 py-4">

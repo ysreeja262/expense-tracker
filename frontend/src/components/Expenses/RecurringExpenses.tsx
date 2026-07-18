@@ -115,12 +115,12 @@ const RecurringExpenses: React.FC<RecurringexpenseProps> = ({
     );
 
     return (
-        <div className = "bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
+        <div className = "bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
             {/*Header*/}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                     <RefreshCw className="h-5 w-5 text-indigo-600" />
-                    <h2 className="text-lg font-bold text-gray-800">
+                    <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                         Recurring Expense
                     </h2>
                     {recurring.length>0 && (
@@ -283,10 +283,10 @@ const RecurringExpenses: React.FC<RecurringexpenseProps> = ({
                                     <RefreshCw className="h-4 w-4 text-indigo-600"/>
                                 </div>
                                 <div>
-                                    <p className="text-sm font-semibold text-gray-800">
+                                    <p className="text-sm font-semibold text-gray-800 dark:text-white">
                                         {r.description}
                                     </p>
-                                    <p className="text-xs text-gray-500">
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">
                                         {r.category}
                                     </p>
                                 </div>
@@ -297,7 +297,7 @@ const RecurringExpenses: React.FC<RecurringexpenseProps> = ({
                                                    ${FREQUENCY_COLORS[r.frequency]}`}">
                                     {r.frequency}
                                 </span>
-                                <span className="text-sm font-bold text-gray-800">
+                                <span className="text-sm font-bold text-gray-800 dark:text-white">
                                     {formatCurrency(r.amount, currency)}
                                 </span>
                                 <span className="text-xs text-gray-400">
@@ -318,8 +318,9 @@ const RecurringExpenses: React.FC<RecurringexpenseProps> = ({
                     ))}
                      {/* Total Monthly */}
                      <div className="mt-3 pt-3 border-t border-gray-100
+                                     dark:border-gray-700
                                      flex items-center justify-between px-1">
-                        <span className="text-sm font-bold text-gray-700">
+                        <span className="text-sm font-bold text-gray-700 dark:text-gray-200">
                             Total Monthly Cost
                         </span>
                         <span className="text-sm font-bold text-indigo-600">

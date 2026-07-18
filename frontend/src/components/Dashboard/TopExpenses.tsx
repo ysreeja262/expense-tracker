@@ -67,14 +67,14 @@ const TopExpenses: React.FC<TopExpensesProps> = ({
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border
-                        border-gray-100 p-6 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border
+                        border-gray-100 dark:border-gray-700 p-6 mb-6">
             
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2">
                     <Award className="h=5 w-5 text-indigo-600" />
-                    <h2 className="text-lg font-bold text-gray-800">
+                    <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                         Top 5 Expenses
                     </h2>
                 </div>
@@ -140,7 +140,7 @@ const TopExpenses: React.FC<TopExpensesProps> = ({
                                 <div className="flex items-center
                                                 justify-between mb-1">
                                    <div className="flex items-center gap-2 min-w-0">
-                                      <span className = "text-sm font-semibold text-gray-800 truncate">
+                                      <span className = "text-sm font-semibold text-gray-800 dark:text-white truncate">
                                         {expense.description}
                                       </span>
                                       <span className={`px-2 py-0.5 rounded-full
@@ -150,7 +150,7 @@ const TopExpenses: React.FC<TopExpensesProps> = ({
                                       </span>
                                    </div>
                                    <div className="text-right shrink-0 ml-2">
-                                    <span className="text-sm font-bold text-gray-800">
+                                    <span className="text-sm font-bold text-gray-800 dark:text-white">
                                         {formatCurrency(expense.amount, currency)}
                                     </span>
                                     <span className="text-xs text-gray-400 ml-1">
@@ -160,7 +160,7 @@ const TopExpenses: React.FC<TopExpensesProps> = ({
                                 </div>
                                 
                                 {/*Progress Bar*/}
-                                <div className="w-full bg-gray-100 rounded-full h-1.5">
+                                <div className="w-full bg-gray-100 dark:bg-gray-600 rounded-full h-1.5">
                                     <div 
                                        className="bg-indigo-500 h-1.5 rounded-full transition-all duration-500"
                                        style={{ width: `${percent}%`}}
@@ -168,7 +168,7 @@ const TopExpenses: React.FC<TopExpensesProps> = ({
                                 </div>
 
                                 {/* Date */}
-                                <p className="text-xs text-gray-400 mt-0.5">
+                                <p className="text-xs text-gray-400 dark:text-gray-500 mt-0.5">
                                     {formatDate(expense.date)}
                                 </p>
                             </div>
@@ -179,7 +179,7 @@ const TopExpenses: React.FC<TopExpensesProps> = ({
                     {/*Summary*/}
                     <div className="mt-4 pt-4 border-t border-gray-100
                                     flex items-center justify-between">
-                       <span className="text-xs text-gray-500">
+                       <span className="text-xs text-gray-500 dark:text-gray-400">
                         Top 5 out of {filtered.length} expenses
                        </span>
                        <span className="text-xs font-semibold text-gray-600">

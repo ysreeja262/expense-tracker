@@ -101,7 +101,7 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
        filters.to !== '';
 
     return (
-        <div className = "bg-white rounded-xl shadow-sm border border-gray-100 p-4 mb-4">
+        <div className = "bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-4 mb-4">
 
             {/* TopRow */}
             <div className = "flex items-center justify-between gap-3">
@@ -127,7 +127,7 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                                border transisition-colors duration-200
                                ${hasActiveFilters
                                 ? 'border-indigo-300 text-indigo-600 bg-indigo-50'
-                                : 'border-gray-200 text-gray-600 hover:bg-gray-50'
+                                : 'border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:bg-gray-50'
                                }`}
                 >
                 
@@ -171,6 +171,7 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
             {/* Expanded Filter Panel */}
             {isExpanded && (
                 <div className="mt-4 pt-4 border-t border-gray-100
+                                dark:border-gray-700
                                 grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {/* Category Filter */}
                     <div>
@@ -183,8 +184,10 @@ const ExpenseFilters: React.FC<ExpenseFiltersProps> = ({
                           value={filters.category}
                           onChange = {handleChange}
                           className="w-full px-3 py-2 border border-gray-200
-                                     rounded-lg text-sm focus:outline-none
-                                     focus:ring-2 focus:ring-indigo-300"
+                                     dark:border-gray-600 rounded-lg text-sm 
+                                     focus:outline-none focus:ring-2 
+                                     focus:ring-indigo-300 bg-white dark:bg-gray-700
+                                     dark:text-white"
                         >
                             <option value="">All Categories</option>
                             {CATEGORIES.map(cat => (

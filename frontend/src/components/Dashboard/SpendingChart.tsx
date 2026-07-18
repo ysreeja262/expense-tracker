@@ -74,11 +74,11 @@ const SpendingChart: React.FC<SpendingChartProps> = ({ expenses, currency }) => 
     }
 
     return (
-        <div className="bg-white rounded-xl shadow-sm border
-                        border-gray-100 p-6 mb-6">
+        <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border
+                        border-gray-100 dark: border-gray-700 p-6 mb-6">
            {/*Header + Toogle */}
            <div className = "flex items-center justify-between mb-6">
-             <h2 className="text-lg font-bold text-gray-800">
+             <h2 className="text-lg font-bold text-gray-800 dark:text-white">
                 Spending Analytics
              </h2>
              <div className="flex bg-gray-100 rounded-lg p-1">

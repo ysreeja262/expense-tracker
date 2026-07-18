@@ -2,15 +2,17 @@
 // It includes a logo, a currency selector, and a mobile menu toggle button. The component uses React hooks for state management and handles user interactions such as changing the selected currency and toggling the mobile menu.
 
 import React, { useState } from 'react'; //React - needed to create React components, useState - hook to manage the state of the mobile menu (open/closed)
-import { DollarSign, Menu, X } from 'lucide-react'; 
+import { DollarSign, Menu, X, Moon, Sun } from 'lucide-react'; 
 import { SUPPORTED_CURRENCIES, getUserCurrency } from '../../utils/currency'; //SUPPORTED_CURRENCIES - array of supported currency codes and labels, getUserCurrency - function to get the user's preferred currency from local storage or default to USD.
 
 interface NavbarProps {
     onCurrencyChange: (currency: string) => void; //onCurrencyChange - callback function that is called when the user selects a different currency from the dropdown. It takes the selected currency code as an argument.
     selectedCurrency: string; //selectedCurrency - the currently selected currency code, which is passed as a prop to the Navbar component. This value is used to set the default value of the currency selector dropdown.
+    isDark: boolean;
+    onToggleDark: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ onCurrencyChange, selectedCurrency }) => { //React.FC<NavbarProps> - tells Type
+const Navbar: React.FC<NavbarProps> = ({ onCurrencyChange, selectedCurrency, isDark, onToggleDark }) => { //React.FC<NavbarProps> - tells Type
     const [menuOpen, setMenuOpen] = useState(false); //menuOpen = false -> hamburger icon shown, menu hidden. menuOpen = true -> X icon shown, menu visible.
 
     return (
@@ -42,22 +44,48 @@ const Navbar: React.FC<NavbarProps> = ({ onCurrencyChange, selectedCurrency }) =
                                 </option>
                             ))}
                          </select>
+
+                         {/* Dark Mode Toggle */}
+                         <button 
+                           onClick={onToggleDark}
+                           className="p-2 rounded-lg bg-indigo-600
+                                      dark:bg-gray-700 hover:bg-indigo-500
+                                      dark:hover:bg-gray-600"
+                            title={isDark ? 'Switch to Light' : 'Switch to Dark'}
+                         >
+                            {isDark
+                              ? <Sun className="h-5 w-5 text-yellow-300" />
+                              : <Moon className="h-5 w-5 text-indigo-200" />
+                            }
+                         </button>
                     </div>
 
                     {/*Mobile Menu Button*/}
-                    <div className="md:hidden"> //md:hiddenn - hide on medium screens and above, show only on mobile screens. This is how tailwind does responsive design.
+                    <div className="md:hidden items-center gap-2"> 
                         <button
-                            onClick={() => setMenuOpen(!menuOpen)} //onClick -> toggle menuOpen state between true and false when button is clicked. If menuOpen is true, clicking the button will set it to false (close the menu), and vice-versa.
-                            className="bg-indigo-600 text-white"
+                            onClick={onToggleDark} 
+                            className="p-2 rounded-lg bg-indigo-600 dark:bg-gray-700 transition-colors"
                         >
-                            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+                            {isDark
+                              ? <Sun className="h-5 w-5 text-yellow-300" />
+                              : <Moon className="h-5 w-5 text-indigo-200" />
+                            }
+                        </button>
+                        <button
+                          onClick={() => setMenuOpen(!menuOpen)}
+                          className="text-indigo-200 hover:text-white"
+                        >
+                            {menuOpen 
+                              ? <X className="h-6 w-6" />
+                              : <Menu className="h-6 w-6" />
+                            } 
                         </button>
                     </div>
                 </div>
             </div>
             {/*Mobile Menu*/}
             {menuOpen && (
-                <div className="md:hidden bg-indigo-800 px-4 py-3">
+                <div className="md:hidden bg-indigo-800 dark: bg-gray-800 px-4 py-3">
                         <label className="text-indigo-200 text-sm font-medium block mb-1">
                             Currency:
                         </label>
@@ -67,7 +95,7 @@ const Navbar: React.FC<NavbarProps> = ({ onCurrencyChange, selectedCurrency }) =
                                 onCurrencyChange(e.target.value);
                                 setMenuOpen(false);
                             }} //onChange -> when user picks new currency, call onCurrencyChange with new value. e.target.value is the new selected currency code from the dropdown. setMenuOpen(false) -> close the mobile menu after selecting a currency.
-                            className="w-full bg-indigo-600 text-white text-sm rounded-lg 
+                            className="w-full bg-indigo-600 dark: bg-gray text-white text-sm rounded-lg 
                                        px-3 py-1.5 border border-indigo-500 focus:outline-none 
                                        focus:ring-2 focus:ring-indigo-300"
                         >
