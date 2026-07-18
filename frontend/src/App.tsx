@@ -11,6 +11,7 @@ import SpendingChart from './components/Dashboard/SpendingChart';
 import MonthlySummary from './components/Dashboard/MonthlySummary';
 import BudgetTracker from './components/Dashboard/BudgetTracker';
 import RecurringExpenses from './components/Expenses/RecurringExpenses';
+import TopExpenses from './components/Dashboard/TopExpenses';
 
 const App: React.FC = () => {
   const {
@@ -80,6 +81,11 @@ const App: React.FC = () => {
         <SpendingChart
            expenses={expenses}
            currency={currency}
+        />
+
+        <TopExpenses
+          expenses={expenses}
+          currency={currency}
         />
 
         <MonthlySummary
